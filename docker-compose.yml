@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5001:5001"
+    volumes:
+      - .:/app
+    environment:
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
+    command: flask run --host=0.0.0.0 --port=5001
+
+  test:
+    build: .
+    volumes:
+      - .:/app
+    command: python -m unittest discover tests
+
+networks:
+  default:
+    name: ai-flask-api-network
+
